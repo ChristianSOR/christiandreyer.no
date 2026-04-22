@@ -1,0 +1,68 @@
+---
+const navItems = [
+  { href: '/',          label: 'Home'      },
+  { href: '/about',     label: 'About'     },
+  { href: '/cv',        label: 'CV'        },
+  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/writing',   label: 'Writing'   },
+];
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="sticky top-0 z-50 border-b border-stone-200 dark:border-stone-800 bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-sm">
+  <nav class="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
+    <!-- Wordmark -->
+    <a href="/" class="text-sm font-semibold tracking-tight text-stone-900 dark:text-stone-100 hover:opacity-70 transition-opacity">
+      CD
+    </a>
+
+    <!-- Nav links -->
+    <div class="flex items-center gap-6">
+      {navItems.slice(1).map(({ href, label }) => (
+        <a
+          href={href}
+          class:list={['nav-link', { 'active': isActive(href) }]}
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Theme toggle -->
+    <button
+      id="theme-toggle"
+      aria-label="Toggle theme"
+      class="p-1.5 rounded-md text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 transition-all"
+    >
+      <!-- Sun icon -->
+      <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+        <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+      </svg>
+      <!-- Moon icon -->
+      <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<script is:inline>
+  // Theme toggle — runs immediately to avoid flash
+  const toggle = document.getElementById('theme-toggle');
+  toggle?.addEventListener('click', () => {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+      html.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      html.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+</script>
