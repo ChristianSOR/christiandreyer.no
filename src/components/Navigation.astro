@@ -1,33 +1,40 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const navItems = [
-  { href: '/',          label: 'Home'      },
-  { href: '/about',     label: 'About'     },
-  { href: '/cv',        label: 'CV'        },
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/writing',   label: 'Writing'   },
+  { href: `${base}/about`,     label: 'About'     },
+  { href: `${base}/cv`,        label: 'CV'        },
+  { href: `${base}/portfolio`, label: 'Portfolio' },
+  { href: `${base}/writing`,   label: 'Writing'   },
 ];
 
 const currentPath = Astro.url.pathname;
 
 function isActive(href: string) {
-  if (href === '/') return currentPath === '/';
+  if (href === base || href === `${base}/`) return currentPath === `${base}/` || currentPath === `${base}`;
   return currentPath.startsWith(href);
 }
 ---
 
-<header class="sticky top-0 z-50 border-b border-stone-200 dark:border-stone-800 bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-sm">
+<header class="sticky top-0 z-50 border-b border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-sm">
   <nav class="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
+
     <!-- Wordmark -->
-    <a href="/" class="text-sm font-semibold tracking-tight text-stone-900 dark:text-stone-100 hover:opacity-70 transition-opacity">
-      CD
+    <a href={`${base}/`} class="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors">
+      Christian Dreyer
     </a>
 
     <!-- Nav links -->
-    <div class="flex items-center gap-6">
-      {navItems.slice(1).map(({ href, label }) => (
+    <div class="flex items-center gap-1">
+      {navItems.map(({ href, label }) => (
         <a
           href={href}
-          class:list={['nav-link', { 'active': isActive(href) }]}
+          class:list={[
+            'px-3 py-1.5 rounded-md text-sm font-medium transition-colors',
+            isActive(href)
+              ? 'text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800'
+              : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-900'
+          ]}
         >
           {label}
         </a>
@@ -37,14 +44,12 @@ function isActive(href: string) {
     <!-- Theme toggle -->
     <button
       id="theme-toggle"
-      aria-label="Toggle theme"
-      class="p-1.5 rounded-md text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 transition-all"
+      aria-label="Toggle dark mode"
+      class="p-1.5 rounded-md text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all"
     >
-      <!-- Sun icon -->
       <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
         <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
       </svg>
-      <!-- Moon icon -->
       <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
         <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
       </svg>
@@ -53,9 +58,7 @@ function isActive(href: string) {
 </header>
 
 <script is:inline>
-  // Theme toggle — runs immediately to avoid flash
-  const toggle = document.getElementById('theme-toggle');
-  toggle?.addEventListener('click', () => {
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
     const html = document.documentElement;
     if (html.classList.contains('dark')) {
       html.classList.remove('dark');

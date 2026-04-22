@@ -3,49 +3,31 @@ import Page from '../layouts/Page.astro';
 import { cv } from '../data/cv';
 ---
 
-<Page
-  title="CV"
-  description="CV of Christian Dreyer — education, experience, and skills."
->
+<Page title="CV" description="CV of Christian Dreyer — education, experience, and skills.">
   <div class="max-w-3xl mx-auto px-6 py-16">
 
     <div class="flex items-start justify-between mb-12">
       <div>
         <p class="section-label mb-3">Curriculum Vitae</p>
-        <h1 class="text-3xl font-semibold text-stone-900 dark:text-stone-100 tracking-tight">
-          {cv.name}
-        </h1>
-        <p class="text-stone-500 dark:text-stone-400 mt-1">{cv.title} &middot; {cv.location}</p>
+        <h1 class="text-3xl font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">{cv.name}</h1>
+        <p class="text-zinc-500 dark:text-zinc-400 mt-1">{cv.title} &middot; {cv.location}</p>
       </div>
-      <a
-        href="/cv.pdf"
-        class="btn-ghost hidden sm:flex"
-        aria-label="Download PDF"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
-        </svg>
-        PDF
-      </a>
     </div>
 
-    <!-- Summary -->
-    <p class="text-stone-600 dark:text-stone-400 leading-relaxed mb-16 max-w-xl">
-      {cv.summary}
-    </p>
+    <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-16 max-w-xl">{cv.summary}</p>
 
     <!-- Education -->
     <section class="mb-14">
       <p class="section-label mb-6">Education</p>
       <div class="space-y-8">
         {cv.education.map((edu) => (
-          <div class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-8">
-            <span class="text-sm text-stone-400 dark:text-stone-500 sm:w-28 flex-shrink-0 pt-0.5">{edu.period}</span>
+          <div class="flex flex-col sm:flex-row gap-1 sm:gap-8">
+            <span class="text-sm text-zinc-400 dark:text-zinc-500 sm:w-28 flex-shrink-0 pt-0.5">{edu.period}</span>
             <div>
-              <p class="font-medium text-stone-900 dark:text-stone-100">{edu.degree}</p>
-              <p class="text-stone-500 dark:text-stone-400 text-sm">{edu.field}</p>
-              <p class="text-stone-500 dark:text-stone-400 text-sm">{edu.institution}</p>
-              {edu.notes && <p class="text-stone-400 dark:text-stone-500 text-sm mt-1 italic">{edu.notes}</p>}
+              <p class="font-semibold text-zinc-900 dark:text-zinc-100">{edu.degree}</p>
+              <p class="text-zinc-600 dark:text-zinc-400 text-sm">{edu.field}</p>
+              <p class="text-zinc-500 dark:text-zinc-500 text-sm">{edu.institution}</p>
+              {edu.notes && <p class="text-zinc-400 dark:text-zinc-500 text-sm mt-1 italic">{edu.notes}</p>}
             </div>
           </div>
         ))}
@@ -59,15 +41,15 @@ import { cv } from '../data/cv';
       <p class="section-label mb-6">Experience</p>
       <div class="space-y-10">
         {cv.experience.map((exp) => (
-          <div class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-8">
-            <span class="text-sm text-stone-400 dark:text-stone-500 sm:w-28 flex-shrink-0 pt-0.5">{exp.period}</span>
+          <div class="flex flex-col sm:flex-row gap-1 sm:gap-8">
+            <span class="text-sm text-zinc-400 dark:text-zinc-500 sm:w-28 flex-shrink-0 pt-0.5">{exp.period}</span>
             <div class="flex-1">
-              <p class="font-medium text-stone-900 dark:text-stone-100">{exp.role}</p>
-              <p class="text-stone-500 dark:text-stone-400 text-sm mb-3">{exp.company} &middot; {exp.location}</p>
-              <ul class="space-y-1">
+              <p class="font-semibold text-zinc-900 dark:text-zinc-100">{exp.role}</p>
+              <p class="text-zinc-500 dark:text-zinc-400 text-sm mb-3">{exp.company} &middot; {exp.location}</p>
+              <ul class="space-y-1.5">
                 {exp.bullets.map((b) => (
-                  <li class="text-sm text-stone-600 dark:text-stone-400 flex gap-2">
-                    <span class="text-stone-300 dark:text-stone-600 flex-shrink-0 mt-1.5">—</span>
+                  <li class="text-sm text-zinc-600 dark:text-zinc-400 flex gap-2">
+                    <span class="text-zinc-300 dark:text-zinc-600 flex-shrink-0 mt-1.5 select-none">—</span>
                     {b}
                   </li>
                 ))}
@@ -85,47 +67,31 @@ import { cv } from '../data/cv';
       <p class="section-label mb-6">Skills</p>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400 mb-3">Technical</p>
-          <ul class="space-y-1.5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-3">Technical</p>
+          <ul class="space-y-2">
             {cv.skills.technical.map((s) => (
-              <li class="text-sm text-stone-600 dark:text-stone-400">{s}</li>
+              <li class="text-sm text-zinc-700 dark:text-zinc-300">{s}</li>
             ))}
           </ul>
         </div>
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400 mb-3">Domain</p>
-          <ul class="space-y-1.5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-3">Domain</p>
+          <ul class="space-y-2">
             {cv.skills.domain.map((s) => (
-              <li class="text-sm text-stone-600 dark:text-stone-400">{s}</li>
+              <li class="text-sm text-zinc-700 dark:text-zinc-300">{s}</li>
             ))}
           </ul>
         </div>
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400 mb-3">Languages</p>
-          <ul class="space-y-1.5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-3">Languages</p>
+          <ul class="space-y-2">
             {cv.skills.languages.map((s) => (
-              <li class="text-sm text-stone-600 dark:text-stone-400">{s}</li>
+              <li class="text-sm text-zinc-700 dark:text-zinc-300">{s}</li>
             ))}
           </ul>
         </div>
       </div>
     </section>
-
-    {cv.certifications.length > 0 && (
-      <>
-        <div class="divider mb-14"></div>
-        <section class="mb-14">
-          <p class="section-label mb-6">Certifications</p>
-          <ul class="space-y-2">
-            {cv.certifications.map((c) => (
-              <li class="text-sm text-stone-600 dark:text-stone-400">
-                {c.name} <span class="text-stone-400 dark:text-stone-500">({c.year})</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </>
-    )}
 
   </div>
 </Page>
