@@ -12,13 +12,28 @@ const projects = (await getCollection('portfolio'))
   .filter(p => p.data.featured)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
+
+// Add your hero images here — drop files into public/images/hero/
+// and list their filenames below.
+const heroImages = [
+  // '/christiandreyer.no/images/hero/photo1.jpg',
+  // '/christiandreyer.no/images/hero/photo2.jpg',
+];
+const hasHeroImages = heroImages.length > 0;
 ---
 
 <Page title="Christian Dreyer" description="Engineer — fluid mechanics, thermal systems, and computational methods.">
   <div class="max-w-3xl mx-auto px-6">
 
     <!-- Hero -->
-    <section class="pt-20 pb-16">
+    <section class="pt-16 pb-16">
+
+      {hasHeroImages && (
+        <div id="hero-image" class="w-full aspect-[16/7] rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 mb-10">
+          <img id="hero-img-el" src="" alt="Christian Dreyer" class="w-full h-full object-cover transition-opacity duration-700" />
+        </div>
+      )}
+
       <p class="section-label mb-5">Engineer · Norway</p>
       <h1 class="text-4xl sm:text-5xl font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight mb-6 leading-tight">
         Christian Dreyer
@@ -29,7 +44,7 @@ const projects = (await getCollection('portfolio'))
 
       <div class="flex flex-wrap gap-3 mt-8">
         <a href={`${base}/cv`} class="btn-primary">View CV</a>
-        <a href="mailto:christian@christiandreyer.no" class="btn-ghost">Get in touch</a>
+        <a href="mailto:christian.sorbu@gmail.com" class="btn-ghost">Get in touch</a>
       </div>
     </section>
 
@@ -61,7 +76,7 @@ const projects = (await getCollection('portfolio'))
             </div>
             <h2 class="font-semibold text-zinc-900 dark:text-zinc-100">Portfolio</h2>
           </div>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400">Projects, tools, and simulations.</p>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400">Projects, pictures, and written work.</p>
         </a>
 
         <a href={`${base}/writing`} class="card group">
@@ -96,9 +111,7 @@ const projects = (await getCollection('portfolio'))
       <section class="py-14 border-t border-zinc-200 dark:border-zinc-800">
         <div class="flex items-center justify-between mb-8">
           <p class="section-label">Recent writing</p>
-          <a href={`${base}/writing`} class="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-            All posts →
-          </a>
+          <a href={`${base}/writing`} class="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">All posts →</a>
         </div>
         <div class="space-y-6">
           {posts.map((post) => (
@@ -107,7 +120,7 @@ const projects = (await getCollection('portfolio'))
                 <h3 class="font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-600 dark:group-hover:text-zinc-400 transition-colors">
                   {post.data.title}
                 </h3>
-                <time class="text-sm text-zinc-400 dark:text-zinc-500 flex-shrink-0">
+                <time class="text-sm text-zinc-400 flex-shrink-0">
                   {post.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}
                 </time>
               </div>
@@ -123,9 +136,7 @@ const projects = (await getCollection('portfolio'))
       <section class="py-14 border-t border-zinc-200 dark:border-zinc-800">
         <div class="flex items-center justify-between mb-8">
           <p class="section-label">Featured projects</p>
-          <a href={`${base}/portfolio`} class="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-            All projects →
-          </a>
+          <a href={`${base}/portfolio`} class="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">All projects →</a>
         </div>
         <div class="space-y-3">
           {projects.map((project) => (
@@ -135,9 +146,7 @@ const projects = (await getCollection('portfolio'))
               </h3>
               <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-3">{project.data.description}</p>
               <div class="flex flex-wrap gap-1.5">
-                {project.data.tags.map(tag => (
-                  <span class="tag">{tag}</span>
-                ))}
+                {project.data.tags.map(tag => <span class="tag">{tag}</span>)}
               </div>
             </a>
           ))}
@@ -147,3 +156,17 @@ const projects = (await getCollection('portfolio'))
 
   </div>
 </Page>
+
+{hasHeroImages && (
+  <script define:vars={{ heroImages }}>
+    // Pick image based on current hour — changes once per hour, same for all visitors
+    const img = document.getElementById('hero-img-el');
+    if (img) {
+      const hour = new Date().getHours();
+      const index = hour % heroImages.length;
+      img.src = heroImages[index];
+      img.style.opacity = '0';
+      img.onload = () => { img.style.opacity = '1'; };
+    }
+  </script>
+)}

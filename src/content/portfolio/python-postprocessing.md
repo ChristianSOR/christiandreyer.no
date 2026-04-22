@@ -2,6 +2,7 @@
 title: "CFD Post-Processing Library"
 description: "Python library for automated extraction, analysis, and plotting of OpenFOAM simulation results. Cuts post-processing time from hours to minutes."
 date: 2024-02-15
+category: project
 tags: ["Python", "OpenFOAM", "automation", "data analysis"]
 github: "https://github.com/christiandreyer/foam-postpro"
 featured: true

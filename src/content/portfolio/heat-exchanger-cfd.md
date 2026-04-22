@@ -2,6 +2,7 @@
 title: "Shell-and-Tube Heat Exchanger CFD"
 description: "High-fidelity CFD analysis of a shell-and-tube heat exchanger using OpenFOAM. Validated against experimental data from a lab test rig."
 date: 2023-09-01
+category: project
 tags: ["CFD", "OpenFOAM", "heat transfer", "validation"]
 image: "/images/portfolio/heat-exchanger.jpg"
 github: "https://github.com/christiandreyer/heatex-cfd"

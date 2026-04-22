@@ -17,6 +17,8 @@ const portfolio = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
+    // 'project' | 'personal' | 'writing'
+    category: z.enum(['project', 'personal', 'writing']).default('project'),
     tags: z.array(z.string()).default([]),
     image: z.string().optional(),
     link: z.string().url().optional(),

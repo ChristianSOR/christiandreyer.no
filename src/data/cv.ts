@@ -3,7 +3,7 @@
 export const cv = {
   name: 'Christian Dreyer',
   title: 'Engineer',
-  email: 'christian@christiandreyer.no',
+  email: 'christian.sorbu@gmail.com',
   location: 'Norway',
   summary:
     'Engineer with a focus on fluid mechanics, thermal systems, and computational methods. Interested in bridging physical intuition with modern software tools.',

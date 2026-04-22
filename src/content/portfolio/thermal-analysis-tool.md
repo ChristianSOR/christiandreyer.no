@@ -2,6 +2,7 @@
 title: "Thermal Network Analysis Tool"
 description: "Interactive thermal resistance network solver for rapid system-level thermal design. Web-based with real-time visualisation."
 date: 2024-06-01
+category: project
 tags: ["Python", "thermal", "web", "tools"]
 link: "https://thermal.christiandreyer.no"
 featured: false
